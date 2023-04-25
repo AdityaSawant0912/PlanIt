@@ -1,0 +1,65 @@
+.head  {
+    @apply text-left tracking-wider font-bold 
+    text-custom-green text-3xl flex justify-between
+    mr-auto ml-4 my-auto align-middle mt-4;
+}
+
+.hv{
+    @apply underline text-center
+}
+.hv:hover {
+    @apply text-custom-blue
+}
+
+.cl {  
+    @apply relative  items-center justify-center 
+    h-6 w-6
+    hover:text-red-400
+    transition-all duration-300 ease-linear
+    cursor-pointer 
+}
+
+  .barhr {
+    @apply bg-custom-green
+    border border-custom-green rounded-full
+    mt-4
+    mx-2;
+  }
+  
+.form{
+     @apply  tracking-wider 
+     text-gray-800
+    mt-6 text-center text-2xl font-semibold
+    cursor-text 
+    /* border border-custom-green */
+    rounded-md mx-28
+   
+}
+.inp{
+    @apply  tracking-wider 
+    mt-4 text-xl flex-col space-y-4
+     text-gray-600
+    
+}
+
+.inp2{
+    @apply  tracking-wider 
+    mt-4 text-xl flex-col space-y-4 ml-4 mr-4
+     text-gray-600
+    
+}
+/* .inp-spacing{
+    @apply   mx-20
+} */
+.btn{
+    @apply 
+    mt-6 flex-row text-center
+    bg-custom-green
+    cursor-pointer 
+    text-custom-cream2
+    rounded-md
+    w-16
+    h-8
+    mx-20
+}
+
