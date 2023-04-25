@@ -1,0 +1,47 @@
+{
+  "name": "agenda-builder",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "prettier": "prettier --write ."
+  },
+  "dependencies": {
+    "@chakra-ui/icons": "^2.0.17",
+    "@chakra-ui/react": "^2.5.1",
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@next-auth/mongodb-adapter": "^1.1.1",
+    "@next/font": "^13.3.0",
+    "bcryptjs": "^2.4.3",
+    "daisyui": "^2.51.3",
+    "eslint": "8.34.0",
+    "eslint-config-next": "13.2.1",
+    "formik": "^2.2.9",
+    "framer-motion": "^10.5.0",
+    "mongodb": "^4.1.1",
+    "mongoose": "^7.0.1",
+    "nanoid": "^4.0.1",
+    "next": "13.2.1",
+    "next-auth": "^4.20.1",
+    "nextjs-progressbar": "^0.0.16",
+    "react": "18.2.0",
+    "react-beautiful-dnd": "^13.1.1",
+    "react-contextmenu": "2.14.0",
+    "react-dom": "18.2.0",
+    "react-hot-toast": "^2.4.0",
+    "react-icons": "^4.8.0",
+    "react-modal": "^3.16.1",
+    "react-redux": "^8.0.5",
+    "unsplash-js": "^7.0.15"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.13",
+    "postcss": "^8.4.21",
+    "prettier": "2.8.4",
+    "tailwindcss": "^3.2.7"
+  }
+}
