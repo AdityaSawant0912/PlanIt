@@ -164,15 +164,12 @@ html {
   }
 
   .channel-bar {
-    @apply w-1/5 h-screen m-0 ml-16 bg-custom-white
+    @apply w-[5%] h-screen m-0 ml-16 bg-custom-white
      overflow-hidden;
   }
 
   .channel-container {
-    @apply flex flex-col items-center justify-start
-   bg-custom-white
-   shadow-md
-    p-1 m-0;
+    @apply flex flex-col items-center justify-start bg-custom-white shadow-md p-1 m-0;
   }
 
   .channel-block {

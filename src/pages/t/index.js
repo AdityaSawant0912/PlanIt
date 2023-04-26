@@ -38,7 +38,7 @@ export default function Home() {
         <SideBar />
         {/* <ContentContainer /> */}
       </div>
-      <div className='flex flex-row ml-20' >
+      <div className='flex flex-row ml-16 -z-50' >
         <div>
           <hr />
           <InfiniteScroll
