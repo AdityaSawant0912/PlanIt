@@ -14,7 +14,7 @@ export default function AddTask(props) {
 
 
   const { data: session, loading } = useSession();
-  const email = session?.user?.email;
+  const email = session?.user?.uid;
   const [Title, setTitle] = useState('');
   const [Duration_Minutes, setDuration_Minutes] = useState('15');
   const [Duration_Hours, setDuration_Hours] = useState('0');

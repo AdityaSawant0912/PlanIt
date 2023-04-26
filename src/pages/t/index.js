@@ -31,6 +31,7 @@ export default function Home() {
     Today = new Date($)
   }
   let Tasks = data?.tasks
+  let week = 1
   // listen for scroll event and load more images if we reach the bottom of window
 
   return (
@@ -49,23 +50,13 @@ export default function Home() {
             hasMore={true}
             loader={<h4>View</h4>} className='flex flex-row'
           >
-            <ChannelBar date={Today} inc={0} task={Tasks} />
-            <ChannelBar date={Today} inc={1} task={Tasks} />
-            <ChannelBar date={Today} inc={2} task={Tasks} />
-            <ChannelBar date={Today} inc={3} task={Tasks} />
-            <ChannelBar date={Today} inc={4} task={Tasks} />
-            <ChannelBar date={Today} inc={5} task={Tasks} />
-            <ChannelBar date={Today} inc={6} task={Tasks} />
-            <ChannelBar date={Today} inc={7} task={Tasks} />
-            <ChannelBar date={Today} inc={8} task={Tasks} />
-            <ChannelBar date={Today} inc={9} task={Tasks} />
-            <ChannelBar date={Today} inc={10} task={Tasks} />
-            <ChannelBar date={Today} inc={11} task={Tasks} />
-            <ChannelBar date={Today} inc={12} task={Tasks} />
-            <ChannelBar date={Today} inc={13} task={Tasks} />
-            <ChannelBar date={Today} inc={14} task={Tasks} />
-            <ChannelBar date={Today} inc={15} task={Tasks} />
-            <ChannelBar date={Today} inc={16} task={Tasks} />
+            <ChannelBar date={Today} inc={0 + (week * 7)} task={Tasks} />
+            <ChannelBar date={Today} inc={1 + (week * 7)} task={Tasks} />
+            <ChannelBar date={Today} inc={2 + (week * 7)} task={Tasks} />
+            <ChannelBar date={Today} inc={3 + (week * 7)} task={Tasks} />
+            <ChannelBar date={Today} inc={4 + (week * 7)} task={Tasks} />
+            <ChannelBar date={Today} inc={5 + (week * 7)} task={Tasks} />
+            <ChannelBar date={Today} inc={6 + (week * 7)} task={Tasks} />
           </InfiniteScroll>
         </div>
 
