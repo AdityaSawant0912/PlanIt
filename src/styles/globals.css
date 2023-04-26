@@ -164,7 +164,7 @@ html {
   }
 
   .channel-bar {
-    @apply w-[5%] h-screen m-0 ml-16 bg-custom-white
+    @apply w-[15%] h-screen m-0 ml-16 bg-custom-white
      overflow-hidden;
   }
 
@@ -186,7 +186,7 @@ html {
   }
 
   .dropdown {
-    @apply m-0 w-max px-4 pb-2
+    @apply m-0 w-max px-4
     transition duration-300 ease-in-out;
   }
 
@@ -207,21 +207,21 @@ html {
   }
 
   .dropdown-selection {
-    @apply flex flex-row items-center justify-evenly
-    mt-1 mr-auto ml-2
-    transition duration-700 ease-in-out
-    cursor-pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    cursor: pointer;
   }
 
   .dropdown-selection-text {
-    @apply text-gray-500 font-semibold tracking-wide
-    mr-auto
-    transition duration-300 ease-in-out
-    cursor-pointer;
+    @apply text-gray-500;
+    font-weight: 600;
+    letter-spacing: 0.025em;
+    cursor: pointer
   }
 }
 
-@tailwind utilities;
 
 ::-webkit-scrollbar {
   background-color: transparent;
