@@ -7,15 +7,14 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { useSession } from "next-auth/react"
 import { useRouter } from 'next/router'
 import useSWR from 'swr'
-import { useState, useEffect } from 'react'
-// const fetcher = (...args) => fetch(...args).then((res) => res.json())
+const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
 export default function Home() {
   const { data: session, status } = useSession()
   const router = useRouter()
   // const [Tasks, setTasks] = useState(null);
 
-  // const { data, error } = useSWR(`http://localhost:3000/api/task/get?email=${session?.user?.uid}`, fetcher)
+  const { data, error } = useSWR(`http://localhost:3000/api/task/get?email=${session?.user?.email}`, fetcher, { refreshInterval: 1000 })
   // const fetchTasks = () => {
   //   fetch(`http://localhost:3000/api/getTasks?email=${session?.user?.email}`)
   //     .then((response) => {
@@ -24,49 +23,48 @@ export default function Home() {
   //     .then((data) => (setTasks(data?.tasks)))
   // };
   // fetchTasks()
-  const [Tasks, setTasks] = useState([]);
-  const [refresh, setRefresh] = useState(true);
-  useEffect(() => {
-    fetch(`/api/task/get?email=${session?.user?.uid}`)
-      .then(res => res.json())
-      .then(data => {
-        setTasks(data.tasks)
-        console.log(data);
-        console.log('Updated')
-      })
-  }, [session?.user?.uid, refresh])
-  console.log(Tasks);
-  const [Today, setToday] = useState(new Date());
-  const [week, setWeek] = useState(0);
-  const [offset, setOffset] = useState(Today.getDay());
+  let Today = new Date()
+  let { $ } = router.query
+  if ($) {
+    Today = new Date($)
+  }
+  let Tasks = data?.tasks
   // listen for scroll event and load more images if we reach the bottom of window
 
   return (
     <div>
       <div className='appview'>
-        <TopNavigation nextWeek={() => { setOffset(offset + 1); console.log(offset); }} prevWeek={() => { setOffset(offset - 1); }} />
-        <SideBar refresh={ () => { setRefresh(!refresh)} } />
+        <TopNavigation />
+        <SideBar />
         {/* <ContentContainer /> */}
       </div>
       <div className='flex flex-row ml-16 -z-50' >
         <div>
           <hr />
-          <div className='flex flex-grow'>
-            {
-              [...Array(7)].map((day, i) => {
-                console.log(i);
-                return <ChannelBar date={Today} inc={i + (week * 7) - offset} task={Tasks} day={i} key={i } />
-              })
-            
-            }
-            {/* <ChannelBar date={Today} inc={0 + (week * 7) - offset} task={Tasks} />
-            <ChannelBar date={Today} inc={1 + (week * 7) - offset} task={Tasks} />
-            <ChannelBar date={Today} inc={2 + (week * 7) - offset} task={Tasks} />
-            <ChannelBar date={Today} inc={3 + (week * 7) - offset} task={Tasks} />
-            <ChannelBar date={Today} inc={4 + (week * 7) - offset} task={Tasks} />
-            <ChannelBar date={Today} inc={5 + (week * 7) - offset} task={Tasks} />
-            <ChannelBar date={Today} inc={6 + (week * 7) - offset} task={Tasks} /> */}
-          </div>
+          <InfiniteScroll
+            dataLength={100}
+            next={() => { return (<ChannelBar date={Today} inc={11} />) }}
+            hasMore={true}
+            loader={<h4>View</h4>} className='flex flex-row'
+          >
+            <ChannelBar date={Today} inc={0} task={Tasks} />
+            <ChannelBar date={Today} inc={1} task={Tasks} />
+            <ChannelBar date={Today} inc={2} task={Tasks} />
+            <ChannelBar date={Today} inc={3} task={Tasks} />
+            <ChannelBar date={Today} inc={4} task={Tasks} />
+            <ChannelBar date={Today} inc={5} task={Tasks} />
+            <ChannelBar date={Today} inc={6} task={Tasks} />
+            <ChannelBar date={Today} inc={7} task={Tasks} />
+            <ChannelBar date={Today} inc={8} task={Tasks} />
+            <ChannelBar date={Today} inc={9} task={Tasks} />
+            <ChannelBar date={Today} inc={10} task={Tasks} />
+            <ChannelBar date={Today} inc={11} task={Tasks} />
+            <ChannelBar date={Today} inc={12} task={Tasks} />
+            <ChannelBar date={Today} inc={13} task={Tasks} />
+            <ChannelBar date={Today} inc={14} task={Tasks} />
+            <ChannelBar date={Today} inc={15} task={Tasks} />
+            <ChannelBar date={Today} inc={16} task={Tasks} />
+          </InfiniteScroll>
         </div>
 
       </div>
