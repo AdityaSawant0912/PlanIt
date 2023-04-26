@@ -1,5 +1,3 @@
-import Head from 'next/head'
-import { useState, useEffect } from 'react';
 import SideBar from '@/components/task/sidebartask'
 import ChannelBar from '@/components/task/ChannelBlock'
 import styles from '@/styles/Home.module.css'
