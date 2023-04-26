@@ -1,5 +1,3 @@
-import Head from 'next/head'
-import { useState, useEffect } from 'react';
 import SideBar from '@/components/task/sidebartask'
 import ChannelBar from '@/components/task/ChannelBlock'
 import styles from '@/styles/Home.module.css'
@@ -41,7 +39,7 @@ export default function Home() {
         <SideBar />
         {/* <ContentContainer /> */}
       </div>
-      <div className='flex flex-row ml-20' >
+      <div className='flex flex-row ml-16 -z-50' >
         <div>
           <hr />
           <InfiniteScroll

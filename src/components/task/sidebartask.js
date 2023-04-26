@@ -24,7 +24,7 @@ const SideBar = () => {
       <div className="fixed top-0 left-0 h-screen w-16 flex flex-col flex-start
                   bg-custom-cream shadow-lg">
 
-        <Link href="/"><SideBarLogo icon={<Image src="/img/Planit.svg" alt='Add' width={90} height={72} />} /></Link>
+        <Link href="/"><SideBarLogo icon={<Image src="/svg/Planit2.svg" alt='Add' width={90} height={72} />} /></Link>
         <Divider />
         <button onClick={() => { setAddTaskVisible(true) }}><SideBarIcon icon={<BsPlus size="32" />} text={"Add"} /></button>
         <AddTask modalIsOpen={addTaskVisible} toggleModal={() => { setAddTaskVisible(false) }} ></AddTask>
