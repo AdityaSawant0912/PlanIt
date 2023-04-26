@@ -1,5 +1,5 @@
 import { getToken } from 'next-auth/jwt'
-import dbConnect from '@/lib/dbconnect'
+import dbconnect from '@/lib/dbconnect'
 import User from '@/models/Users'
 
 export default async function sessionUser({ req }) {
@@ -11,7 +11,7 @@ export default async function sessionUser({ req }) {
     return result
   }
   try {
-    await dbConnect()
+    await dbconnect()
   } catch (error) {
     result.error = 'Something went wrong with the Database.'
     result.dbError = error

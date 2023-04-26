@@ -22,7 +22,6 @@ const ChannelBar = (props) => {
   const { data: session, status } = useSession()
   const [Tasks, setTasks] = useState(null);
   // setTasks(props.task)
-
   let date = new Date(props.date);
   if (props.inc != 0) {
     date.setDate(date.getDate() + props.inc)
@@ -31,6 +30,7 @@ const ChannelBar = (props) => {
 
   const month = date.toLocaleString("en-US", { month: "long" })
   const day = date.toLocaleString("en-US", { day: "2-digit" })
+  const dayFull = date.toLocaleDateString('en-US', { weekday: 'long' });
   let today = [];
   props.task?.forEach(task => {
     let taskDate = new Date(task?.Start)
@@ -49,12 +49,12 @@ const ChannelBar = (props) => {
 
   return (
     <div className='channel-bar m-0 border-r-2 mt-16'>
-      <Dropdown header={month + ', ' + day} tasks={today} date={date} />
+      <Dropdown header={month + ', ' + day} tasks={today} date={date} dayFull={dayFull } />
     </div>
   );
 };
 
-const Dropdown = ({ header, tasks, date }) => {
+const Dropdown = ({ header, tasks, date, dayFull }) => {
   const [expanded, setExpanded] = useState(true);
   const [addTaskVisible, setAddTaskVisible] = useState(false);
   const [CObjectId, setCObjectId] = useState(null);
@@ -106,6 +106,8 @@ const Dropdown = ({ header, tasks, date }) => {
               className={expanded ? 'dropdown-header-text-selected' : 'dropdown-header-text'}
             >
               {header}
+              <br />
+              { dayFull }
             </h5>
           </Link>
           <button onClick={() => { setAddTaskVisible(true) }}><FaPlus size='16' className='text-accent text-opacity-80 my-auto ml-40 mr-2' /></button>

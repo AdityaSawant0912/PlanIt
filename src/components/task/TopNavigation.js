@@ -11,7 +11,7 @@ import styles from '@/styles/SideBar.module.css'
 // import useDarkMode from '../hooks/useDarkMode';
 import { useSession } from "next-auth/react"
 import Image from 'next/image';
-const TopNavigation = () => {
+const TopNavigation = ({ nextWeek, prevWeek }) => {
 
   let userImage
   const { data: session, status } = useSession()
@@ -25,7 +25,16 @@ const TopNavigation = () => {
       {/* <HashtagIcon /> */}
       {/* <div className=''> */}
       <div className='flex min-w-fit ml-24'>
-        <Title />
+
+        <span onClick={prevWeek}  >Previous Week</span>
+        <Link href={`?$=${new Date().getMonth() + 1}/${new Date().toLocaleString("en-US", { day: '2-digit' })}/${new Date().getFullYear()}`} className='title-text'>
+          <h5>
+            {new Date().toLocaleString("en-US", { month: "long" })}, {new Date().toLocaleString("en-US", { day: '2-digit' })}
+          </h5>
+
+        </Link>
+        <span onClick={nextWeek}  >Next Week</span>
+
       </div>
       {/* </div> */}
       {/* <div className='@apply flex justify-items-end'> */}
@@ -69,13 +78,6 @@ const Search = () => (
 const BellIcon = () => <FaRegBell size='24' className='top-navigation-icon' />;
 const UserCircle = () => <FaUserCircle size='24' />;
 // const HashtagIcon = () => <FaHashtag size='20' className='title-hashtag' />;
-const Title = () => (
-  <Link href={`?$=${new Date().getMonth() + 1}/${new Date().toLocaleString("en-US", { day: '2-digit' })}/${new Date().getFullYear()}`} className='title-text'>
-    
-      <h5>
-        {new Date().toLocaleString("en-US", { month: "long" })}, {new Date().toLocaleString("en-US", { day: '2-digit' })}
-      </h5>
-    
-  </Link>);
+
 
 export default TopNavigation;

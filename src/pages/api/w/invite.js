@@ -1,10 +1,10 @@
-import dbConnect from '@/lib/dbconnect'
+import dbconnect from '@/lib/dbconnect'
 import Workspace from '@/models/Workspaces'
 import sessionUser from '@/middleware/getSessionUser'
 import { nanoid } from 'nanoid'
 export default async function handler(req, res) {
   try {
-    await dbConnect()
+    await dbconnect()
   } catch (error) {
     return res
       .status(500)
@@ -55,7 +55,7 @@ export default async function handler(req, res) {
       );
       const work = await Workspace.findOne({ id: wID })
       console.log(work);
-       return res.status(200).json({ inviteCode, expiresAt: expires, workspace: work })
+      return res.status(200).json({ inviteCode, expiresAt: expires, workspace: work })
     }
     case 'DELETE': {
       const { wID } = req.body

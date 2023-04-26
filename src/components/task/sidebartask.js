@@ -13,7 +13,7 @@ import { MdOutlinePendingActions } from 'react-icons/md'
 
 
 
-const SideBar = () => {
+const SideBar = ({ refresh }) => {
   const taskAdded = () => toast.success("Task Added")
   const [addTaskVisible, setAddTaskVisible] = useState(false);
   const [doneTaskVisible, setDoneTaskVisible] = useState(false);
@@ -27,7 +27,7 @@ const SideBar = () => {
         <Link href="/"><SideBarLogo icon={<Image src="/svg/Planit2.svg" alt='Add' width={90} height={72} />} /></Link>
         <Divider />
         <button onClick={() => { setAddTaskVisible(true) }}><SideBarIcon icon={<BsPlus size="32" />} text={"Add"} /></button>
-        <AddTask modalIsOpen={addTaskVisible} toggleModal={() => { setAddTaskVisible(false) }} ></AddTask>
+        <AddTask modalIsOpen={addTaskVisible} toggleModal={() => { setAddTaskVisible(false) }} taskadded={() => { taskAdded(); refresh() } } ></AddTask>
         <button onClick={() => { setDoneTaskVisible(true) }}><SideBarIcon icon={<IoMdCheckmark size="32" />} text={"Done"} /></button>
         <DoneTask modalIsOpen={doneTaskVisible} toggleModal={() => { setDoneTaskVisible(false) }} ></DoneTask>
         <button onClick={() => { setNotDoneTaskVisible(true) }}><SideBarIcon icon={<MdOutlinePendingActions size="24" />} text={"Pending"} /></button>

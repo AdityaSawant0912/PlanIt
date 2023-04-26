@@ -1,11 +1,11 @@
-import dbConnect from '@/lib/dbconnect'
+import dbconnect from '@/lib/dbconnect'
 import Board from '@/models/Boards'
 import List from '@/models/Lists'
 
 export default async function handler(req, res) {
   const { wID, bID } = req.query
   try {
-    await dbConnect()
+    await dbconnect()
   } catch (error) {
     return res
       .status(500)
