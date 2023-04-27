@@ -1,7 +1,7 @@
 import React from 'react'
 import Modal from 'react-modal'
 import { useSession } from "next-auth/react"
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 Modal.setAppElement('#__next')
 import styles from '@/styles/Task.module.css'
 import { AiOutlineClose } from 'react-icons/ai';
@@ -18,16 +18,44 @@ export default function AddTask(props) {
   const [Title, setTitle] = useState('');
   const [Duration_Minutes, setDuration_Minutes] = useState('15');
   const [Duration_Hours, setDuration_Hours] = useState('0');
-
+  const [Statement, setStatement] = useState('');
+  const [Priority, setPriority] = useState(1);
   let d = new Date()
   if (props.date) {
     d = new Date(props.date)
   }
-
   d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
   const [Due, setDue] = useState(d.toJSON().slice(0, 10));
   const [Start, setStart] = useState(d.toJSON().slice(0, 10));
   const [Description, setDescription] = useState('');
+  
+  useEffect( () => {
+    if(Statement === '')
+      return
+    const doFetch = async () => {
+      let res = await fetch('/api/task/nlp', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ sentence: Statement })
+      })
+      let data = await res.json()
+      // console.log(data);
+      setTitle(data.title)
+      setDuration_Hours(data.duration_hour)
+      setDuration_Minutes(data.duration_minutes)
+      setPriority(data.priority)
+      console.log(new Date(data.due_date).toISOString().slice(0, 10) || null);
+      console.log(new Date(data.start_date).toISOString().slice(0, 10) || null);
+      
+      setDue(new Date(data.due_date).toISOString().slice(0, 10) || null)
+      setStart(new Date(data.start_date).toISOString().slice(0, 10) || null)
+      return data
+    }
+    let result = doFetch()
+  }, [Statement]);
+  
   const handleSubmit = async () => {
     // console.log(Title, Duration_Minutes, Duration_Hours, (int(Duration_Minutes) + 60 * int(Duration_Hours)) , Due, Start, Description, session.user.email);
     const res = await fetch('/api/task/add', {
@@ -71,6 +99,7 @@ export default function AddTask(props) {
       setStart(value);
     }
     if (id === "due") {
+      console.log(value);
       setDue(value);
     }
     if (id === "description") {
@@ -111,7 +140,7 @@ export default function AddTask(props) {
           <Toaster />
           <h1 className={styles.head}>
             <div className='text-center'>
-              Add task to <bn className={styles.hv}>Tasks</bn>
+              Add task to <span className={styles.hv}>Tasks</span>
             </div>
             <button className={styles.cl} onClick={props.toggleModal}>
               < Icon icon={<AiOutlineClose size="16" />} />
@@ -120,6 +149,8 @@ export default function AddTask(props) {
           <Divider></Divider>
           <div className='form-div' >
             <div className='form'>
+              <input id='title' type="text" value={Statement} placeholder='NLP Statment' onChange={(e) => setStatement(e.target.value)} className={styles.form} />
+              <br />
               <input id='title' type="text" value={Title} placeholder='Task Title' onChange={(e) => handleInputChange(e)} className={styles.form} />
               <br />
               <div className={styles.inp}>

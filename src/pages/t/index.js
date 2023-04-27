@@ -44,7 +44,7 @@ export default function Home() {
   return (
     <div>
       <div className='appview'>
-        <TopNavigation nextWeek={() => { setOffset(offset + 1); console.log(offset); }} prevWeek={() => { setOffset(offset - 1); }} />
+        <TopNavigation nextWeek={() => { setWeek(week + 1); console.log(week); }} prevWeek={() => { setWeek(week - 1); }} />
         <SideBar refresh={() => { setRefresh(!refresh) }} />
         {/* <ContentContainer /> */}
       </div>

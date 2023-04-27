@@ -1,84 +1,101 @@
-// import React, { useState } from 'react'
-// import { Flex, useColorModeValue } from '@chakra-ui/react'
-// import { DragDropContext } from 'react-beautiful-dnd'
-// import dynamic from 'next/dynamic'
-// import UserNav from '@/components/UserNav'
-// import SubNav from '@/components/SubNav'
-// import Text from '../components/svg/Collab.js'
-// const Column = dynamic(() => import('@/components/Board/List'), {
-//   ssr: false
-// })
+const natural = require('natural');
+const chrono = require('chrono-node');
+const nlp = require('compromise');
 
-// const Board = () => {
-//   const [initData, setinitData] = useState(initialData)
+const sentence = "Buy groceries ";
 
-//   const onDragEnd = result => {
-//     const { destination, source, draggableId } = result
-//     if (!destination) return
-//     console.log(destination, source, draggableId)
-//     let newData = { ...initData }
-//     newData.columns[source.droppableId].taskIds.splice(source.index, 1)
-//     newData.columns[destination.droppableId].taskIds.splice(
-//       destination.index,
-//       0,
-//       draggableId
-//     )
-//     setinitData(newData)
-//   }
-//   return (
-//     <>
-//       <Text />
-//       <UserNav />
-//       <SubNav />
-//       <DragDropContext onDragEnd={onDragEnd}>
-//         <Flex
-//           flexDir="column"
-//           bg={useColorModeValue("gray.50", "gray.700")}
-//           minH="100vh"
-//           color={'white'}
-//         >
+// const sentence = 'I need to buy groceries and do laundry tomorrow'
 
-//           <Flex justify='space-between' px="6%" py="20">
-//             {initData.columnOrder.map(columnId => {
-//               let column = initData.columns[columnId]
-//               let tasks = column.taskIds.map(taskId => initData.tasks[taskId])
-//               return <Column key={column.id} column={column} tasks={tasks} px="2%" />
-//             })}
-//           </Flex>
-//         </Flex>
-//       </DragDropContext>
-//     </>
-//   )
-// }
+// Create a tokenizer to split the sentence into words
+const tokenizer = new natural.WordTokenizer();
+const regex = /(\d+)\s*(hours*|hrs*|h)\s*(\d+)\s*(minutes*|mins*|m)?/i;
+const match = sentence.match(regex);
+// Extract the task description
+const doc = nlp(sentence);
+const title = doc.verbs().out('text');
+// Tokenize the sentence and extract the relevant keywords
+const tokens = tokenizer.tokenize(sentence);
+const keywords = natural.PorterStemmer.stem(sentence);
 
-// export default Board
+// Extract the due date using Chrono-Node
 
-// const initialData = {
-//   tasks: {
-//     1: { id: '1', content: 'Lmao' },
-//     2: { id: '2', content: 'This' },
-//     3: { id: '3', content: 'Sucks' },
-//     4: { id: '4', content: 'More' },
-//     5: { id: '5', content: 'HUH' },
-//     6: { id: '6', content: 'Test' }
-//   },
-//   columns: {
-//     'column-1': {
-//       id: 'column-1',
-//       title: 'List1',
-//       taskIds: ['3', '4', '5', '6']
-//     },
-//     'column-2': {
-//       id: 'column-2',
-//       title: 'List2',
-//       taskIds: ['1', '2']
-//     },
-//     'column-3': {
-//       id: 'column-3',
-//       title: 'List3',
-//       taskIds: []
-//     }
-//   },
-//   // Facilitate reordering of the columns
-//   columnOrder: ['column-1', 'column-2', 'column-3']
-// }
+// Extract the duration using Chrono-Node
+let minsRegex = /\s*(\d+)\s*(minutes*|mins*|m|minute*)/i;
+let hoursRegex = /\s*(\d+)\s*(hours*|hrs*|h|hour*)/i;
+let priorityRegex = /(?:low|normal|medium|high)\s+priority|\bpriority\s+(?:low|normal|medium|high)\b/i;
+let priorityMatch = sentence.match(priorityRegex) ? sentence.match(priorityRegex)[0] ? sentence.match(priorityRegex)[0].toLowerCase().split('priority') : null  : null;
+priorityMatch = priorityMatch ? priorityMatch.filter((item) => item != '') : null;
+priorityMatch = priorityMatch ? priorityMatch.map((item) => item.trim()) : null;
+priorityMatch = priorityMatch ? priorityMatch[0] : null;
+console.log(priorityMatch);
+// Extract the duration using the regular expression
+let mins = sentence.match(minsRegex)? sentence.match(minsRegex)[1] : 0;
+let hours = sentence.match(hoursRegex)? sentence.match(hoursRegex)[1] : 0;
+if(mins > 60) {
+  hours += Math.floor(mins / 60);
+  mins = mins % 60;
+}
+
+const duration_hour = parseInt(hours);
+const duration_minutes = parseInt(mins);
+
+// Set default values for priority, completed and deleted
+let p = 1
+if(priorityMatch) {
+  
+  switch (priorityMatch.toLowerCase()) {
+    case 'low':
+      p = -1;
+      break;
+    case 'normal':
+      p = 0;
+      break;
+    case 'medium':
+      p = 1;
+      break;
+    case 'high':
+      p = 2;
+      break;
+  }
+  console.log(p);
+  
+}
+console.log(p);
+let priority = p;
+let completed = false;
+let deleted = false;
+
+function extractTitle(text) {
+
+  const doc = nlp(text);
+  const taskPhrase = doc.match('#Verb #Adverb? #Adjective? #Noun+');
+  if (taskPhrase.found) {
+    return taskPhrase.out('text');
+  } else {
+    return null;
+  }
+
+  return taskTitle;
+}
+
+
+// Create the task object
+const task = {
+  Title: extractTitle(sentence),
+  User: 'user_id',
+  Due: dueDate,
+  Start: new Date(),
+  Duration_Minutes: duration_minutes,
+  Duration_Hours: duration_hour,
+  Description: '',
+  Priority: priority,
+  Completed: completed,
+  Deleted: deleted,
+};
+
+console.log(task);
+
+
+// Define the text containing the duration
+const text = "100 hr 200 mins  ";
+
