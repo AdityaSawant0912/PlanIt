@@ -4,7 +4,7 @@ import styles from '@/styles/Home.module.css'
 import ContentContainer from '@/components/task/Content'
 import TopNavigation from '@/components/task/TopNavigation'
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useSession } from "next-auth/react"
+import { useSession, getSession } from "next-auth/react"
 import { useRouter } from 'next/router'
 import useSWR from 'swr'
 import { useState, useEffect } from 'react'
@@ -51,7 +51,7 @@ export default function Home() {
         <div className='flex max-w-full'>
           {
             [...Array(7)].map((day, i) => {
-              return <ChannelBar date={Today} inc={i + (week * 7) - offset} task={Tasks} day={i} key={i} />
+              return <ChannelBar date={Today} inc={i + (week * 7) - offset} task={Tasks} day={i} key={i} refresh={() => { setRefresh(!refresh) }} />
             })
 
           }
@@ -76,4 +76,26 @@ export default function Home() {
       } */}
     </>
   )
+}
+export async function getServerSideProps(context) {
+  const session = await getSession(context)
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/login'
+      }
+    }
+  }
+
+  return {
+    props: {
+      
+    }
+  }
+
+  return {
+    redirect: {
+      destination: '/'
+    }
+  }
 }

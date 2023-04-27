@@ -28,9 +28,9 @@ export default function AddTask(props) {
   const [Due, setDue] = useState(d.toJSON().slice(0, 10));
   const [Start, setStart] = useState(d.toJSON().slice(0, 10));
   const [Description, setDescription] = useState('');
-  
-  useEffect( () => {
-    if(Statement === '')
+
+  useEffect(() => {
+    if (Statement === '')
       return
     const doFetch = async () => {
       let res = await fetch('/api/task/nlp', {
@@ -46,16 +46,16 @@ export default function AddTask(props) {
       setDuration_Hours(data.duration_hour)
       setDuration_Minutes(data.duration_minutes)
       setPriority(data.priority)
-      console.log(new Date(data.due_date).toISOString().slice(0, 10) || null);
-      console.log(new Date(data.start_date).toISOString().slice(0, 10) || null);
-      
-      setDue(new Date(data.due_date).toISOString().slice(0, 10) || null)
+      console.log(data.due_date);
+
+      if (data.due_date === null) setDue(new Date(data.start_date).toISOString().slice(0, 10) || null)
+      else setDue(new Date(data.due_date).toISOString().slice(0, 10) || null)
       setStart(new Date(data.start_date).toISOString().slice(0, 10) || null)
       return data
     }
     let result = doFetch()
   }, [Statement]);
-  
+
   const handleSubmit = async () => {
     // console.log(Title, Duration_Minutes, Duration_Hours, (int(Duration_Minutes) + 60 * int(Duration_Hours)) , Due, Start, Description, session.user.email);
     const res = await fetch('/api/task/add', {
@@ -64,7 +64,7 @@ export default function AddTask(props) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        Title, Duration_Minutes: parseInt(Duration_Minutes), Duration_Hours: parseInt(Duration_Hours), Duration: parseInt(parseInt(Duration_Minutes) + 60 * parseInt(Duration_Hours)), Due, Start, Description, User: email, Priority: 1, Completed: false, Deleted: false
+        Title, Duration_Minutes: parseInt(Duration_Minutes), Duration_Hours: parseInt(Duration_Hours), Duration: parseInt(parseInt(Duration_Minutes) + 60 * parseInt(Duration_Hours)), Due, Start, Description, User: email, Priority, Completed: false, Deleted: false
       }),
     });
     const data = await res.json();

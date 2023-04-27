@@ -13,8 +13,9 @@ const notify = () => { const notify = new Notification("Planned IT!") }
 
 export default function DoneTask(props) {
   const { data: session, loading } = useSession();
-  const { data, error } = useSWR(`http://localhost:3000/api/task/completed?email=${session?.user?.email}`, fetcher, { refreshInterval: 1000 })
+  const { data, error } = useSWR(`http://localhost:3000/api/task/completed?email=${session?.user?.uid}`, fetcher, { refreshInterval: 1000 })
   let Tasks = data?.tasks
+  console.log("hhe");
   console.log(Tasks);
   let doneTasks = [];
   Tasks?.forEach(task => {
