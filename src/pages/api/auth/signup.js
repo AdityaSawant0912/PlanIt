@@ -1,4 +1,4 @@
-import dbConnect from '@/lib/dbconnect'
+import dbconnect from '@/lib/dbconnect'
 import User from '@/models/Users'
 import { hash } from 'bcryptjs'
 import { nanoid } from 'nanoid'
@@ -8,7 +8,7 @@ export default async function handler(req, res) {
   let { name, email, password } = req.body
   console.log(name, email, password)
   // Check if user exists
-  await dbConnect()
+  await dbconnect()
   console.log('db connected')
   let duplicate = await User.findOne({ email })
   if (duplicate) return res.status(409).json({ error: 'User already exists' })

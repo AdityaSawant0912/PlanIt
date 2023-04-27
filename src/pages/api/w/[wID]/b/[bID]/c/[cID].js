@@ -1,4 +1,4 @@
-import dbConnect from '@/lib/dbconnect'
+import dbconnect from '@/lib/dbconnect'
 import Board from '@/models/Boards'
 import Card from '@/models/Cards'
 import sessionUser from '@/middleware/getSessionUser'
@@ -8,7 +8,7 @@ export default async function handler(req, res) {
   if (dberror) return res.status(401).json({ error: error, dberror: dberror })
 
   try {
-    await dbConnect()
+    await dbconnect()
   } catch (error) {
     return res
       .status(500)

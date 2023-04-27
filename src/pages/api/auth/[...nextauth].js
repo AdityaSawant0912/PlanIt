@@ -4,7 +4,7 @@ import clientPromise from '@/lib/mongodb'
 import GoogleProvider from 'next-auth/providers/google'
 import Credentials from 'next-auth/providers/credentials'
 import { compare } from 'bcryptjs'
-import dbConnect from '@/lib/dbconnect'
+import dbconnect from '@/lib/dbconnect'
 import User from '@/models/Users'
 import { nanoid } from 'nanoid'
 
@@ -35,7 +35,7 @@ export default NextAuth({
 
       },
       async authorize(credentials) {
-        await dbConnect()
+        await dbconnect()
         const user = await User.findOne({ email: credentials.email })
         // if (!user) return null
         if (!user) throw new Error('No user found with this email address')
