@@ -8,13 +8,23 @@ import dbConnect from '@/lib/dbconnect'
 import User from '@/models/Users'
 import { nanoid } from 'nanoid'
 
+const GOOGLE_AUTHORIZATION_URL =
+  'https://accounts.google.com/o/oauth2/v2/auth?' +
+  new URLSearchParams({
+    prompt: 'consent',
+    access_type: 'offline',
+    response_type: 'code',
+    scope: 'openid email profile https://www.googleapis.com/auth/calendar'
+  })
+
 export default NextAuth({
   adapter: MongoDBAdapter(clientPromise),
   providers: [
     GoogleProvider({
       id: 'google',
       clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      authorization: GOOGLE_AUTHORIZATION_URL,
     }),
     Credentials({
       id: 'credentials',
@@ -22,6 +32,7 @@ export default NextAuth({
       credentials: {
         email: { label: 'Email', type: 'text', placeholder: 'jsmith' },
         password: { label: 'Password', type: 'password' }
+
       },
       async authorize(credentials) {
         await dbConnect()
@@ -40,7 +51,10 @@ export default NextAuth({
           uid: user.uid,
           image: user.image
         }
+
+
       }
+
     })
   ],
   secret: process.env.JWT_SECRET,
@@ -93,24 +107,43 @@ export default NextAuth({
         : Promise.resolve(baseUrl)
     },
     async session({ session, token }) {
+      //session.user = token.user;
       session.user.uid = token.uid
       session.user.image = token.picture
+      session.accessToken = token.accessToken
+      session.refreshToken = token.refreshToken
+      session.error = token.error
       return session
     },
     async jwt({ token, user, account, profile }) {
+      //Initial sign in
       if (user) {
         token.id = user.uid
         token.uid = user.uid
       }
       if (account) {
         token.accessToken = account.access_token
-        if (account.provider === 'google') token.id = profile.id
+        if (account.provider === 'google') {
+          token.id = profile.id
+          token.accessToken = account.access_token
+          token.accessTokenExpires = Date.now() + account.expires_in * 1000
+          token.refreshToken = account.refresh_token
+          //user
+        }
+        // return {
+        //   accessToken: account.access_token,
+        //   accessTokenExpires: Date.now() + account.expires_in * 1000,
+        //   refreshToken: account.refresh_token,
+        //   user
+        // }
       }
       return token
     }
   },
+
   pages: {
     signIn: '/login',
     newUser: '/'
   }
 })
+
