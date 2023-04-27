@@ -111,9 +111,9 @@ export default function WithSubnavigation({ asCreator, asCollaborator }) {
           <Button onClick={toggleColorMode} bg="transparent">
             {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
           </Button>
-          {/* <Flex>
+          <Flex>
             <AvatarMenu />
-          </Flex> */}
+          </Flex>
         </Stack>
       </Flex>
 
@@ -299,5 +299,9 @@ const NAV_TEMPLATES = [
         href: '#'
       }
     ]
+  },
+  {
+    label: 'PersonalDashboard',
+    href: '/t'
   }
 ]

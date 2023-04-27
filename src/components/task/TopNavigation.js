@@ -6,6 +6,11 @@ import {
   FaMoon,
   FaSun,
 } from 'react-icons/fa';
+import {
+  AiFillCaretLeft,
+  AiFillCaretRight
+} from 'react-icons/ai';
+
 import Link from 'next/link'
 import styles from '@/styles/SideBar.module.css'
 // import useDarkMode from '../hooks/useDarkMode';
@@ -20,20 +25,20 @@ const TopNavigation = ({ nextWeek, prevWeek }) => {
   }
   return (
     <div className='top-navigation min-w-full'>
-      {/* <Link href="/"><SideBarLogo icon={<Image src="/img/Planit.svg" alt='Add' width={90} height={72} />} /></Link> */}
 
-      {/* <HashtagIcon /> */}
-      {/* <div className=''> */}
       <div className='flex min-w-fit ml-24'>
-
-        <span onClick={prevWeek}  >Previous Week</span>
+        <span onClick={prevWeek} className='m-[0.35rem] mx-2 cursor-pointer'>
+          <AiFillCaretLeft className='' />
+        </span>
         <Link href={`?$=${new Date().getMonth() + 1}/${new Date().toLocaleString("en-US", { day: '2-digit' })}/${new Date().getFullYear()}`} className='title-text'>
           <h5>
             {new Date().toLocaleString("en-US", { month: "long" })}, {new Date().toLocaleString("en-US", { day: '2-digit' })}
           </h5>
 
         </Link>
-        <span onClick={nextWeek}  >Next Week</span>
+        <span onClick={nextWeek} className='m-[0.35rem] mx-2 cursor-pointer'>
+          <AiFillCaretRight />
+        </span>
 
       </div>
       {/* </div> */}
