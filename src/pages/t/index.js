@@ -35,38 +35,33 @@ export default function Home() {
         console.log('Updated')
       })
   }, [session?.user?.uid, refresh])
-  console.log(Tasks);
   const [Today, setToday] = useState(new Date());
   const [week, setWeek] = useState(0);
   const [offset, setOffset] = useState(Today.getDay());
   // listen for scroll event and load more images if we reach the bottom of window
 
   return (
-    <div>
+    <>
       <div className='appview'>
         <TopNavigation nextWeek={() => { setWeek(week + 1); console.log(week); }} prevWeek={() => { setWeek(week - 1); }} />
         <SideBar refresh={() => { setRefresh(!refresh) }} />
         {/* <ContentContainer /> */}
       </div>
-      <div className='flex flex-row ml-16 -z-50' >
-        <div>
-          <hr />
-          <div className='flex flex-grow'>
-            {
-              [...Array(7)].map((day, i) => {
-                console.log(i);
-                return <ChannelBar date={Today} inc={i + (week * 7) - offset} task={Tasks} day={i} key={i} />
-              })
+      <div className='flex flex-row pl-16 -z-50' >
+        <div className='flex max-w-full'>
+          {
+            [...Array(7)].map((day, i) => {
+              return <ChannelBar date={Today} inc={i + (week * 7) - offset} task={Tasks} day={i} key={i} />
+            })
 
-            }
-            {/* <ChannelBar date={Today} inc={0 + (week * 7) - offset} task={Tasks} />
+          }
+          {/* <ChannelBar date={Today} inc={0 + (week * 7) - offset} task={Tasks} />
             <ChannelBar date={Today} inc={1 + (week * 7) - offset} task={Tasks} />
             <ChannelBar date={Today} inc={2 + (week * 7) - offset} task={Tasks} />
             <ChannelBar date={Today} inc={3 + (week * 7) - offset} task={Tasks} />
             <ChannelBar date={Today} inc={4 + (week * 7) - offset} task={Tasks} />
             <ChannelBar date={Today} inc={5 + (week * 7) - offset} task={Tasks} />
-            <ChannelBar date={Today} inc={6 + (week * 7) - offset} task={Tasks} /> */}
-          </div>
+          <ChannelBar date={Today} inc={6 + (week * 7) - offset} task={Tasks} /> */}
         </div>
 
       </div>
@@ -79,6 +74,6 @@ export default function Home() {
           }
         })
       } */}
-    </div>
+    </>
   )
 }
