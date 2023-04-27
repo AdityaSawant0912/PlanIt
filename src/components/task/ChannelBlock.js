@@ -49,12 +49,12 @@ const ChannelBar = (props) => {
 
   return (
     <div className='channel-bar m-0 border-r-2 mt-16'>
-      <Dropdown header={month + ', ' + day} tasks={today} date={date} dayFull={dayFull} />
+      <Dropdown header={month + ', ' + day} tasks={today} date={date} dayFull={dayFull} refresh={ props.refresh } />
     </div>
   );
 };
 
-const Dropdown = ({ header, tasks, date, dayFull }) => {
+const Dropdown = ({ header, tasks, date, dayFull, refresh }) => {
   const [expanded, setExpanded] = useState(true);
   const [addTaskVisible, setAddTaskVisible] = useState(false);
   const [CObjectId, setCObjectId] = useState(null);
@@ -73,24 +73,46 @@ const Dropdown = ({ header, tasks, date, dayFull }) => {
     </div>
 
   );
-  const { cdata, cerror } = useSWR(CObjectId ? `http://localhost:3000/api/task/complete?ObjectId=${CObjectId}` : null, fetcher)
-  if (cdata) {
-    setCObjectId(null)
-    taskCompleted
-  } else if (cerror) {
-    console.log(cerror);
+  
+  const handleDelete = async  (ObjectId) => {
+    let res = await fetch(`http://localhost:3000/api/task/delete?ObjectId=${ObjectId}`)
+    if(res.status == 200){
+      taskDeleted()
+      refresh()
+      console.log('deleted', res);
+    }
+    
   }
-  const { ddata, derror } = useSWR(DObjectId ? `http://localhost:3000/api/task/delete?ObjectId=${DObjectId}` : null, fetcher)
-  if (ddata) {
-    setDObjectId(null)
-    taskDeleted
-  } else if (derror) {
-    console.log(derror);
+  const handleComplete = async  (ObjectId) => {
+    let res = await fetch(`http://localhost:3000/api/task/complete?ObjectId=${ObjectId}`)
+    if(res.status == 200){
+      taskCompleted()
+      refresh()
+    }
   }
+  
+  // const { cdata, cerror } = useSWR(CObjectId ? `http://localhost:3000/api/task/complete?ObjectId=${CObjectId}` : null, fetcher)
+  // if (cdata) {
+  //   setCObjectId(null)
+  //   taskCompleted()
+  //   refresh()
+  // } else if (cerror) {
+  //   console.log(cerror);
+  // }
+  // const { ddata, derror } = useSWR(DObjectId ? `http://localhost:3000/api/task/delete?ObjectId=${DObjectId}` : null, fetcher)
+  // if (ddata) {
+  //   setDObjectId(null)
+  //   taskDeleted()
+  //   console.log('deleted', ddata);
+  //   refresh()
+  // } else if (derror) {
+  //   console.log(derror);
+  // }
   const { pdata, perror } = useSWR(PObjectId ? `http://localhost:3000/api/task/priority?ObjectId=${PObjectId[0]}&Priority=${PObjectId[1]}` : null, fetcher)
   if (pdata) {
     setPObjectId(null)
     toast.success("Task Priority Updated")
+    refresh()
   } else if (perror) {
     console.log(perror);
   }
@@ -111,7 +133,7 @@ const Dropdown = ({ header, tasks, date, dayFull }) => {
             </h5>
           </Link>
           <button onClick={() => { setAddTaskVisible(true) }}><FaPlus size='16' className='text-accent text-opacity-80 ml-20' /></button>
-          <AddTask modalIsOpen={addTaskVisible} toggleModal={() => { setAddTaskVisible(false) }} date={date} taskadded={taskAdded} ></AddTask>
+          <AddTask modalIsOpen={addTaskVisible} toggleModal={() => { setAddTaskVisible(false) }} date={date} taskadded={() => { taskAdded(); refresh() }} ></AddTask>
         </div>
       </div>
       <Divider />
@@ -139,10 +161,10 @@ const Dropdown = ({ header, tasks, date, dayFull }) => {
                 </select>
               </div>
               <div className='flex'>
-                <button onClick={() => { setCObjectId(task._id) }}><Icon icon={<IoMdCheckmark size="20" />} disabled={task.Completed} />
+                <button onClick={() => { handleComplete(task._id) }}><Icon icon={<IoMdCheckmark size="20" />} disabled={task.Completed} />
                 </button>
                 {/* <h5 className='dropdown-selection-text'>{task.Description}</h5> */}
-                <button onClick={() => { setDObjectId(task._id) }}><Icon icon={<MdDelete size="20" />} /></button>
+                <button onClick={() => { handleDelete(task._id) }}><Icon icon={<MdDelete size="20" />} /></button>
               </div>
             </div>
 

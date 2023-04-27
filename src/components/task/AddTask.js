@@ -64,7 +64,7 @@ export default function AddTask(props) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        Title, Duration_Minutes: parseInt(Duration_Minutes), Duration_Hours: parseInt(Duration_Hours), Duration: parseInt(parseInt(Duration_Minutes) + 60 * parseInt(Duration_Hours)), Due, Start, Description, User: email, Priority: 1, Completed: false, Deleted: false
+        Title, Duration_Minutes: parseInt(Duration_Minutes), Duration_Hours: parseInt(Duration_Hours), Duration: parseInt(parseInt(Duration_Minutes) + 60 * parseInt(Duration_Hours)), Due, Start, Description, User: email, Priority, Completed: false, Deleted: false
       }),
     });
     const data = await res.json();

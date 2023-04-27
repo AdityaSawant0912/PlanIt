@@ -11,7 +11,7 @@ function getDates(sentence) {
 
   let due_date = new Date(dates[0].end?.date()) || new Date();
   console.log(start_date, due_date);
-  return { start_date, due_date:  due_date === null ? due_date : start_date };
+  return { start_date, due_date:  due_date};
 }
 
 
@@ -37,16 +37,16 @@ function getPriority(sentence) {
 
     switch (priorityMatch.toLowerCase()) {
       case 'low':
-        p = -1;
-        break;
-      case 'normal':
         p = 0;
         break;
-      case 'medium':
+      case 'normal':
         p = 1;
         break;
-      case 'high':
+      case 'medium':
         p = 2;
+        break;
+      case 'high':
+        p = 3;
         break;
     }
     
