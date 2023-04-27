@@ -28,9 +28,9 @@ export default function AddTask(props) {
   const [Due, setDue] = useState(d.toJSON().slice(0, 10));
   const [Start, setStart] = useState(d.toJSON().slice(0, 10));
   const [Description, setDescription] = useState('');
-  
-  useEffect( () => {
-    if(Statement === '')
+
+  useEffect(() => {
+    if (Statement === '')
       return
     const doFetch = async () => {
       let res = await fetch('/api/task/nlp', {
@@ -48,14 +48,14 @@ export default function AddTask(props) {
       setPriority(data.priority)
       console.log(new Date(data.due_date).toISOString().slice(0, 10) || null);
       console.log(new Date(data.start_date).toISOString().slice(0, 10) || null);
-      
+
       setDue(new Date(data.due_date).toISOString().slice(0, 10) || null)
       setStart(new Date(data.start_date).toISOString().slice(0, 10) || null)
       return data
     }
     let result = doFetch()
   }, [Statement]);
-  
+
   const handleSubmit = async () => {
     // console.log(Title, Duration_Minutes, Duration_Hours, (int(Duration_Minutes) + 60 * int(Duration_Hours)) , Due, Start, Description, session.user.email);
     const res = await fetch('/api/task/add', {
@@ -122,15 +122,15 @@ export default function AddTask(props) {
           },
           content: {
             position: 'absolute',
-            top: '15%',
-            left: '31%',
-            right: '31%',
+            top: '10%',
+            left: '30%',
+            right: '30%',
             bottom: '15%',
-            border: '2px solid #E0E0E0',
+            border: '2px solid #009b9a',
             background: '#fff',
             overflow: 'auto',
             WebkitOverflowScrolling: 'touch',
-            // borderRadius: '4px',
+            borderRadius: '12px',
             outline: 'none',
             padding: '20px'
           }
@@ -147,34 +147,38 @@ export default function AddTask(props) {
             </button>
           </h1>
           <Divider></Divider>
-          <div className='form-div' >
-            <div className='form'>
-              <input id='title' type="text" value={Statement} placeholder='NLP Statment' onChange={(e) => setStatement(e.target.value)} className={styles.form} />
-              <br />
-              <input id='title' type="text" value={Title} placeholder='Task Title' onChange={(e) => handleInputChange(e)} className={styles.form} />
-              <br />
-              <div className={styles.inp}>
-                <label htmlFor="estimate_minutes" className='px-10'>Minutes</label>
-                <input id='estimate_minutes' type="text" placeholder='mm' value={Duration_Minutes} onChange={(e) => handleInputChange(e)} />
-                <br />
-                <label htmlFor="estimate_hours" className='px-10'>Hours</label>
-                <input id='estimate_hours' type="text" placeholder='hh' value={Duration_Hours} onChange={(e) => handleInputChange(e)} />
-                <br />
-                <label htmlFor="start" className='px-10'>Start</label>
-                <input id='start' type="date" value={Start} onChange={(e) => handleInputChange(e)} />
-                <br />
-                <label htmlFor="due" className='px-10'>Due</label>
-                <input id='due' type="date" value={Due} onChange={(e) => handleInputChange(e)} />
-                <br />
-                <label htmlFor="description" className='px-10'>Description</label>
-                <input id='description' type="textarea" value={Description} placeholder='Add Description' onChange={(e) => handleInputChange(e)} />
-                <br />
-              </div>
-              <button type="cancel" onClick={props.toggleModal} className={styles.btn}>Cancel</button>
-              <button onClick={() => handleSubmit()} className={styles.btn}>Add</button>
+          <div className='bg-red-400 flex flex-col'>
+            <input id='title' type="text" value={Statement} placeholder='NLP Statement' onChange={(e) => setStatement(e.target.value)} className={styles.form__inp} />
+            <br />
+            <input id='title' type="text" value={Title} placeholder='Task Title' onChange={(e) => handleInputChange(e)} className={styles.form__inp} />
 
-            </div>
           </div>
+          {/* <div className='form bg-red-400 flex flex-col'>
+            <input id='title' type="text" value={Statement} placeholder='NLP Statement' onChange={(e) => setStatement(e.target.value)} className={styles.form} />
+            <br />
+            <input id='title' type="text" value={Title} placeholder='Task Title' onChange={(e) => handleInputChange(e)} className={styles.form} />
+            <br />
+            <div className={styles.inp}>
+              <label htmlFor="estimate_minutes" className='px-10'>Minutes</label>
+              <input id='estimate_minutes' type="text" placeholder='mm' value={Duration_Minutes} onChange={(e) => handleInputChange(e)} />
+              <br />
+              <label htmlFor="estimate_hours" className='px-10'>Hours</label>
+              <input id='estimate_hours' type="text" placeholder='hh' value={Duration_Hours} onChange={(e) => handleInputChange(e)} />
+              <br />
+              <label htmlFor="start" className='px-10'>Start</label>
+              <input id='start' type="date" value={Start} onChange={(e) => handleInputChange(e)} />
+              <br />
+              <label htmlFor="due" className='px-10'>Due</label>
+              <input id='due' type="date" value={Due} onChange={(e) => handleInputChange(e)} />
+              <br />
+              <label htmlFor="description" className='px-10'>Description</label>
+              <input id='description' type="textarea" value={Description} placeholder='Add Description' onChange={(e) => handleInputChange(e)} />
+              <br />
+            </div>
+            <button type="cancel" onClick={props.toggleModal} className={styles.btn}>Cancel</button>
+            <button onClick={() => handleSubmit()} className={styles.btn}>Add</button>
+
+          </div> */}
         </div>
 
       </Modal>
