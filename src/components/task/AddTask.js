@@ -193,12 +193,15 @@ export default function AddTask(props) {
                   <label htmlFor="description" className=''>Description</label>
                   <input id='description' type="textarea" value={Description} placeholder='Add Description' onChange={(e) => handleInputChange(e)} />
                 </div>
+                <br />
               </div>
+              <button type="cancel" onClick={props.toggleModal} className={styles.btn}>Cancel</button>
+              <button onClick={() => handleSubmit()} className={styles.btn}>Add</button>
             </div>
           </div>
         </div>
 
-      </Modal>
+      </Modal >
 
     </>
   )
