@@ -52,7 +52,7 @@ function Login() {
         <section className="w-full p-5">
           <div className="mx-auto my-0 shadow-[0px_0px_50px_2px_rgb(0,0,0,0.2)] w-96 max-w-lg  py-[25px] px-[40px] rounded-sm bg-white">
             <h1 className="mt-3 mb-6 font-mono text-base font-semibold tracking-tight text-center text-gray-500">
-              Log in to Agile Builder
+              Log In
             </h1>
             <div className="">
               <form className="block mt-0 w-50" onSubmit={formik.handleSubmit}>
