@@ -1,5 +1,5 @@
 .head  {
-    @apply text-left tracking-wider font-bold 
+    @apply text-left tracking-wider font-bold
     text-custom-green text-3xl flex justify-between
     mr-auto ml-4 my-auto align-middle mt-4;
 }
@@ -11,12 +11,12 @@
     @apply text-custom-blue
 }
 
-.cl {  
-    @apply relative  items-center justify-center 
+.cl {
+    @apply relative  items-center justify-center
     h-6 w-6
     hover:text-red-400
     transition-all duration-300 ease-linear
-    cursor-pointer 
+    cursor-pointer
 }
 
   .barhr {
@@ -25,37 +25,37 @@
     mt-4
     mx-2;
   }
-  
-.form{
-     @apply  tracking-wider 
-     text-gray-800
-    mt-6 text-center text-2xl font-semibold
-    cursor-text 
-    /* border border-custom-green */
-    rounded-md mx-28
-   
+
+.form__inp{
+    @apply text-gray-800 text-2xl font-semibold mx-12 mt-3;
+    border-radius: 0.375rem;
+    letter-spacing: 0.025em;
+    text-align: center;
+    height: 3rem;
 }
-.inp{
-    @apply  tracking-wider 
-    mt-4 text-xl flex-col space-y-4
-     text-gray-600
-    
+.time__inp{
+    @apply tracking-wider mt-2 text-xl text-gray-600;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20px;
 }
 
 .inp2{
-    @apply  tracking-wider 
+    @apply  tracking-wider
     mt-4 text-xl flex-col space-y-4 ml-4 mr-4
      text-gray-600
-    
+
 }
 /* .inp-spacing{
     @apply   mx-20
 } */
 .btn{
-    @apply 
+    @apply
     mt-6 flex-row text-center
     bg-custom-green
-    cursor-pointer 
+    cursor-pointer
     text-custom-cream2
     rounded-md
     w-16

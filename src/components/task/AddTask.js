@@ -46,10 +46,10 @@ export default function AddTask(props) {
       setDuration_Hours(data.duration_hour)
       setDuration_Minutes(data.duration_minutes)
       setPriority(data.priority)
-      console.log(data.due_date);
+      console.log(new Date(data.due_date).toISOString().slice(0, 10) || null);
+      console.log(new Date(data.start_date).toISOString().slice(0, 10) || null);
 
-      if (data.due_date === null) setDue(new Date(data.start_date).toISOString().slice(0, 10) || null)
-      else setDue(new Date(data.due_date).toISOString().slice(0, 10) || null)
+      setDue(new Date(data.due_date).toISOString().slice(0, 10) || null)
       setStart(new Date(data.start_date).toISOString().slice(0, 10) || null)
       return data
     }
@@ -122,15 +122,15 @@ export default function AddTask(props) {
           },
           content: {
             position: 'absolute',
-            top: '15%',
-            left: '31%',
-            right: '31%',
-            bottom: '15%',
-            border: '2px solid #E0E0E0',
+            top: '10%',
+            left: '20%',
+            right: '20%',
+            bottom: '10%',
+            border: '2px solid #009b9a',
             background: '#fff',
             overflow: 'auto',
             WebkitOverflowScrolling: 'touch',
-            // borderRadius: '4px',
+            borderRadius: '12px',
             outline: 'none',
             padding: '20px'
           }
@@ -147,37 +147,61 @@ export default function AddTask(props) {
             </button>
           </h1>
           <Divider></Divider>
-          <div className='form-div' >
-            <div className='form'>
-              <input id='title' type="text" value={Statement} placeholder='NLP Statment' onChange={(e) => setStatement(e.target.value)} className={styles.form} />
-              <br />
-              <input id='title' type="text" value={Title} placeholder='Task Title' onChange={(e) => handleInputChange(e)} className={styles.form} />
-              <br />
-              <div className={styles.inp}>
-                <label htmlFor="estimate_minutes" className='px-10'>Minutes</label>
-                <input id='estimate_minutes' type="text" placeholder='mm' value={Duration_Minutes} onChange={(e) => handleInputChange(e)} />
+          <div className='flex flex-col pt-2'>
+
+            <input id='title' type="text" value={Statement} placeholder='Enter Task' onChange={(e) => setStatement(e.target.value)} className={styles.form__inp} />
+
+            <br />
+
+            <input id='title' type="text" value={Title} placeholder='Task Title' onChange={(e) => handleInputChange(e)} className={styles.form__inp} />
+
+            <br />
+
+            <div className={styles.time__inp}>
+
+              <div className='w-3/5'>
+
+                <div className='flex justify-between'>
+                  <label htmlFor="estimate_minutes" className=''>Minutes</label>
+                  <input id='estimate_minutes' type="text" placeholder='mm' value={Duration_Minutes} onChange={(e) => handleInputChange(e)} />
+                </div>
+
                 <br />
-                <label htmlFor="estimate_hours" className='px-10'>Hours</label>
-                <input id='estimate_hours' type="text" placeholder='hh' value={Duration_Hours} onChange={(e) => handleInputChange(e)} />
+
+                <div className="flex justify-between">
+                  <label htmlFor="estimate_hours" className=''>Hours</label>
+                  <input id='estimate_hours' type="text" placeholder='hh' value={Duration_Hours} onChange={(e) => handleInputChange(e)} />
+                </div>
+
                 <br />
-                <label htmlFor="start" className='px-10'>Start</label>
-                <input id='start' type="date" value={Start} onChange={(e) => handleInputChange(e)} />
+
+                <div className="flex justify-between">
+                  <label htmlFor="start" className=''>Start</label>
+                  <input id='start' type="date" value={Start} onChange={(e) => handleInputChange(e)} />
+                </div>
+
                 <br />
-                <label htmlFor="due" className='px-10'>Due</label>
-                <input id='due' type="date" value={Due} onChange={(e) => handleInputChange(e)} />
+
+                <div className="flex justify-between">
+                  <label htmlFor="due" className=''>Due</label>
+                  <input id='due' type="date" value={Due} onChange={(e) => handleInputChange(e)} />
+                </div>
+
                 <br />
-                <label htmlFor="description" className='px-10'>Description</label>
-                <input id='description' type="textarea" value={Description} placeholder='Add Description' onChange={(e) => handleInputChange(e)} />
+
+                <div className="flex justify-between">
+                  <label htmlFor="description" className=''>Description</label>
+                  <input id='description' type="textarea" value={Description} placeholder='Add Description' onChange={(e) => handleInputChange(e)} />
+                </div>
                 <br />
               </div>
               <button type="cancel" onClick={props.toggleModal} className={styles.btn}>Cancel</button>
               <button onClick={() => handleSubmit()} className={styles.btn}>Add</button>
-
             </div>
           </div>
         </div>
 
-      </Modal>
+      </Modal >
 
     </>
   )
