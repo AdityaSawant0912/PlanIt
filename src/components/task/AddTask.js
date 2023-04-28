@@ -195,8 +195,10 @@ export default function AddTask(props) {
                 </div>
                 <br />
               </div>
-              <button type="cancel" onClick={props.toggleModal} className={styles.btn}>Cancel</button>
-              <button onClick={() => handleSubmit()} className={styles.btn}>Add</button>
+              <div className='flex'>
+                <button type="cancel" onClick={props.toggleModal} className={styles.btn}>Cancel</button>
+                <button onClick={() => handleSubmit()} className={styles.btn}>Add</button>
+              </div>
             </div>
           </div>
         </div>
