@@ -24,7 +24,6 @@
 }
 
 html {
-  @apply overflow-y-hidden;
   @apply bg-custom-white
 }
 *,
