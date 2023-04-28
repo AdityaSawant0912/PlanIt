@@ -24,6 +24,8 @@
     "eslint-config-next": "13.2.1",
     "formik": "^2.2.9",
     "framer-motion": "^10.5.0",
+    "googleapi": "^1.0.2",
+    "googleapis": "^118.0.0",
     "mongodb": "^4.1.1",
     "mongoose": "^7.0.1",
     "nanoid": "^4.0.1",
