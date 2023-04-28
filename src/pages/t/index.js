@@ -48,7 +48,7 @@ export default function Home() {
         {/* <ContentContainer /> */}
       </div>
       <div className='flex flex-row pl-16 -z-50' >
-        <div className='flex max-w-full'>
+        <div className='flex max-w-full w-screen'>
           {
             [...Array(7)].map((day, i) => {
               return <ChannelBar date={Today} inc={i + (week * 7) - offset} task={Tasks} day={i} key={i} refresh={() => { setRefresh(!refresh) }} />
@@ -89,7 +89,7 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
-      
+
     }
   }
 

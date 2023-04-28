@@ -163,8 +163,10 @@ html {
   }
 
   .channel-bar {
-    @apply w-[15%] h-screen m-0 ml-16 bg-custom-white
+    @apply m-0 ml-16 bg-custom-white
      overflow-hidden;
+     height: calc(100vh - 64px);
+     width: 100%;
   }
 
   .channel-container {

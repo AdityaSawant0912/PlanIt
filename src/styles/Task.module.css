@@ -53,11 +53,11 @@
 } */
 .btn{
     @apply
-    mt-2 flex-row text-center p-2
+    mt-2 flex-row text-center p-2 w-20
     bg-custom-green
     cursor-pointer
     text-custom-cream2
-    rounded-md
-    mx-16
+    rounded-xl
+    mx-10
 }
 

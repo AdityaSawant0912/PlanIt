@@ -50,7 +50,7 @@ const ChannelBar = (props) => {
 
   return (
     <div className='channel-bar m-0 border-r-2 mt-16'>
-      <Dropdown header={month + ', ' + day} tasks={today} date={date} dayFull={dayFull} refresh={ props.refresh } />
+      <Dropdown header={month + ', ' + day} tasks={today} date={date} dayFull={dayFull} refresh={props.refresh} />
     </div>
   );
 };
@@ -74,24 +74,24 @@ const Dropdown = ({ header, tasks, date, dayFull, refresh }) => {
     </div>
 
   );
-  
-  const handleDelete = async  (ObjectId) => {
+
+  const handleDelete = async (ObjectId) => {
     let res = await fetch(`http://localhost:3000/api/task/delete?ObjectId=${ObjectId}`)
-    if(res.status == 200){
+    if (res.status == 200) {
       taskDeleted()
       refresh()
       console.log('deleted', res);
     }
-    
+
   }
-  const handleComplete = async  (ObjectId) => {
+  const handleComplete = async (ObjectId) => {
     let res = await fetch(`http://localhost:3000/api/task/complete?ObjectId=${ObjectId}`)
-    if(res.status == 200){
+    if (res.status == 200) {
       taskCompleted()
       refresh()
     }
   }
-  
+
   // const { cdata, cerror } = useSWR(CObjectId ? `http://localhost:3000/api/task/complete?ObjectId=${CObjectId}` : null, fetcher)
   // if (cdata) {
   //   setCObjectId(null)
