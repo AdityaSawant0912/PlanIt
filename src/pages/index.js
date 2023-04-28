@@ -15,6 +15,7 @@ export default function Home({ sess }) {
       <Feature />
       <Use />
       <Footer />
+      hello
     </>
   )
 }
