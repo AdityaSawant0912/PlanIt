@@ -28,13 +28,14 @@ const ChannelBar = (props) => {
   }
 
 
+  // const year = date.toLocaleString("en-US", { year: "full" })
   const month = date.toLocaleString("en-US", { month: "long" })
   const day = date.toLocaleString("en-US", { day: "2-digit" })
   const dayFull = date.toLocaleDateString('en-US', { weekday: 'long' });
   let today = [];
   props.task?.forEach(task => {
     let taskDate = new Date(task?.Start)
-    if (date.getDate() == taskDate.getDate()) {
+    if (date.toISOString().slice(0, 10) == taskDate.toISOString().slice(0, 10)) {
       today.push(task)
     }
   });
