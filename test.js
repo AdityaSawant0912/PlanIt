@@ -99,4 +99,4 @@ console.log(task);
 // Define the text containing the duration
 const text = "100 hr 200 mins  ";
 
-// Hello world
+// Hello worl
